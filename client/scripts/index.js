@@ -62,27 +62,36 @@ document.addEventListener("DOMContentLoaded", () => {
     postButton.classList.remove("hidden");
     postContent.classList.remove("hidden");
     logo.classList.add("hidden");
+    req.log.info("Posts wurden angezeigt");
     getPosts();
   };
 
   logoutButton.addEventListener("click", () => {
     sessionStorage.removeItem("token");
     location.reload();
+    req.log.info("Benutzer hat sich ausgeloggt");
+    req.log.info("Login GUI wurde geöffnet");
+
   });
 
   loginButton.addEventListener("click", async () => {
     const username = usernameInput.value;
     const password = passwordInput.value;
     await login(username, password);
+    req.log.info("Benutzer loggt sich ein");
+
   });
 
   bruteForceButton.addEventListener("click", async () => {
     const username = usernameInput.value;
     const password = passwordInput.value;
+    req.log.info("Brute Force Simulation wurde gestartet");
+
 
     while (true) {
       await login(username, password);
     }
+    
   });
 
   postButton.addEventListener("click", async () => {
@@ -95,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       body: JSON.stringify({ title, content }),
     });
+    req.log.info("Post wurde in die DB hinzugefügt");
     getPosts();
   });
   });
